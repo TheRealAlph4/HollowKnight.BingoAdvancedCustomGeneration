@@ -56,6 +56,12 @@
 		<Reference Include="Assembly-CSharp-firstpass">
 			<HintPath>$(HollowKnightRefs)/Assembly-CSharp-firstpass.dll</HintPath>
 		</Reference>
+		<Reference Include="BingoGoalPack1">
+		  <HintPath>$(HollowKnightRefs)\Mods\BingoGoalPack1\BingoGoalPack1.dll</HintPath>
+		</Reference>
+		<Reference Include="BingoSync">
+		  <HintPath>$(HollowKnightRefs)\Mods\BingoSync\BingoSync.dll</HintPath>
+		</Reference>
 		<Reference Include="GalaxyCSharp">
 			<HintPath>$(HollowKnightRefs)/GalaxyCSharp.dll</HintPath>
 		</Reference>
