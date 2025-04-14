@@ -15,6 +15,13 @@ namespace BingoAdvancedCustomGeneration
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
+            List<string> groupNames = ["Vanilla", "Extended", "Extended+"];
+            foreach (string groupName in groupNames)
+            {
+                GoalManager.PreCopyGoalGroup(groupName);
+            }
+            GoalManager.SetupCustomVanillaExclusions();
+
             Log("Initializing");
         }
     }

@@ -8,10 +8,10 @@ namespace BingoAdvancedCustomGeneration
     {
         private static Dictionary<string, Dictionary<string, AdvancedGoal>> goalGroups = [];
 
-        public static void setupVanillaGoals()
+        public static void PreCopyGoalGroup(string groupName)
         {
             Dictionary<string, AdvancedGoal> advancedGoals = [];
-            Dictionary<string, BingoGoal> basicGoals = BingoSync.Goals.GetGoalsByGroupName("Vanilla");
+            Dictionary<string, BingoGoal> basicGoals = BingoSync.Goals.GetGoalsByGroupName(groupName);
             foreach(BingoGoal basicGoal in basicGoals.Values)
             {
                 advancedGoals.Add(basicGoal.name, new AdvancedGoal()
@@ -20,20 +20,24 @@ namespace BingoAdvancedCustomGeneration
                     FullExclusions = basicGoal.exclusions.Select(s => string.Copy(s)).ToList(),
                 });
             }
+            goalGroups.Add(groupName, advancedGoals);
+        }
 
+        public static void SetupCustomVanillaExclusions()
+        {
+            Dictionary<string, AdvancedGoal> advancedGoals = goalGroups["Vanilla"];
             bool lineExlusion = true;
 
             Exclude(advancedGoals, "Kill Myla", "Crystal Heart");
-            
+
             Exclude(advancedGoals, "Lumafly Lantern", "Kill Myla", lineExlusion);
             Exclude(advancedGoals, "Lumafly Lantern", "Crystal Heart", lineExlusion);
+            Exclude(advancedGoals, "Lumafly Lantern", "Crystal Guardian 1", lineExlusion);
 
             Exclude(advancedGoals, "Descending Dark", "Desolate Dive", lineExlusion);
             Exclude(advancedGoals, "Descending Dark", "Soul Master", lineExlusion);
 
             Exclude(advancedGoals, "Unlock Queen's Stag + King's Stag Stations", "Have 1500 geo in the bank", lineExlusion);
-
-            goalGroups.Add("Vanilla", advancedGoals);
         }
 
         public static void Exclude(Dictionary<string, AdvancedGoal> goals, string goal1, string goal2, bool line = false)

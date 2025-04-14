@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BingoAdvancedCustomGeneration
 {
     internal enum Tag
     {
-        Dreamnail,
-        Cdash,
         Earlygame,
         Middlegame,
         Lategame,
+
+        Short,
+        Long,
+
+        Dreamnail,
+        Cdash,
+        Dive,
+
+        Deepnest,
+        Hornet2,
+
         Bossfight,
         Geo,
-        Deepnest,
-        Dive,
     }
 
     internal class AdvancedGoal
@@ -25,5 +28,6 @@ namespace BingoAdvancedCustomGeneration
         public List<string> FullExclusions = [];
         public List<string> LineExclusions = [];
         public List<Tag> Tags = [];
+        public double Weight = 1d;
     }
 }
