@@ -17,7 +17,7 @@ namespace BingoAdvancedCustomGeneration
                 advancedGoals.Add(basicGoal.name, new AdvancedGoal()
                 {
                     Name = basicGoal.name,
-                    FullExclusions = basicGoal.exclusions.Select(s => string.Copy(s)).ToList(),
+                    FullExclusions = [.. basicGoal.exclusions.Select(s => string.Copy(s))],
                 });
             }
             goalGroups.Add(groupName, advancedGoals);
@@ -52,6 +52,22 @@ namespace BingoAdvancedCustomGeneration
                 goals[goal1].FullExclusions.Add(goal2);
                 goals[goal2].FullExclusions.Add(goal1);
             }
+        }
+
+        public static Dictionary<string, AdvancedGoal> GetGoalsByName(List<string> goalNames)
+        {
+            Dictionary<string, AdvancedGoal> goals = [];
+            foreach(string goalName in goalNames)
+            {
+                foreach(Dictionary<string, AdvancedGoal> goalGroup in goalGroups.Values)
+                {
+                    if(goalGroup.ContainsKey(goalName))
+                    {
+                        goals[goalName] = goalGroup[goalName];
+                    }
+                }
+            }
+            return goals;
         }
     }
 }
