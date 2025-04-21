@@ -27,8 +27,9 @@ namespace BingoAdvancedCustomGeneration
         {
             Dictionary<string, AdvancedGoal> advancedGoals = goalGroups["Vanilla"];
             bool lineExlusion = true;
+            bool fullExclusion = false;
 
-            Exclude(advancedGoals, "Kill Myla", "Crystal Heart");
+            Exclude(advancedGoals, "Kill Myla", "Crystal Heart", fullExclusion);
 
             Exclude(advancedGoals, "Lumafly Lantern", "Kill Myla", lineExlusion);
             Exclude(advancedGoals, "Lumafly Lantern", "Crystal Heart", lineExlusion);
@@ -37,7 +38,21 @@ namespace BingoAdvancedCustomGeneration
             Exclude(advancedGoals, "Descending Dark", "Desolate Dive", lineExlusion);
             Exclude(advancedGoals, "Descending Dark", "Soul Master", lineExlusion);
 
+            Exclude(advancedGoals, "Slash Zote's corpse in Greenpath", "Defeat Colosseum Zote", fullExclusion);
+            Exclude(advancedGoals, "Slash Zote's corpse in Greenpath", "Rescue Zote in Deepnest", fullExclusion);
+            Exclude(advancedGoals, "Slash Zote's corpse in Greenpath", "Vengefly King + Massive Moss Charger", fullExclusion);
+
             Exclude(advancedGoals, "Unlock Queen's Stag + King's Stag Stations", "Have 1500 geo in the bank", lineExlusion);
+
+            Unexclude(advancedGoals, "Save the 2 grubs in Hive", "Mask Shard  in the Hive");
+            Exclude(advancedGoals, "Save the 2 grubs in Hive", "Mask Shard  in the Hive", lineExlusion);
+            Exclude(advancedGoals, "Save the 2 grubs in Hive", "Hive Knight", lineExlusion);
+            Exclude(advancedGoals, "Save the 2 grubs in Hive", "Hiveblood", lineExlusion);
+
+            Unexclude(advancedGoals, "Tram Pass + Visit all 5 Tram Stations", "Hive Knight");
+            Unexclude(advancedGoals, "Tram Pass + Visit all 5 Tram Stations", "Hiveblood");
+            Unexclude(advancedGoals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive");
+            Exclude(advancedGoals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive", lineExlusion);
         }
 
         public static void Exclude(Dictionary<string, AdvancedGoal> goals, string goal1, string goal2, bool line = false)
@@ -52,6 +67,14 @@ namespace BingoAdvancedCustomGeneration
                 goals[goal1].FullExclusions.Add(goal2);
                 goals[goal2].FullExclusions.Add(goal1);
             }
+        }
+
+        public static void Unexclude(Dictionary<string, AdvancedGoal> goals, string goal1, string goal2)
+        {
+            goals[goal1].LineExclusions.Remove(goal2);
+            goals[goal2].LineExclusions.Remove(goal1);
+            goals[goal1].FullExclusions.Remove(goal2);
+            goals[goal2].FullExclusions.Remove(goal1);
         }
 
         public static Dictionary<string, AdvancedGoal> GetGoalsByName(List<string> goalNames)
