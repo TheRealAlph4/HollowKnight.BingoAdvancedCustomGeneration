@@ -28,6 +28,8 @@ namespace BingoAdvancedCustomGeneration
             
             GoalManager.SetupCustomTournamentExclusions(goals);
 
+            goals.Remove("Slash Millibelle in Pleasure House");
+
             BingoSync.Goals.AddGameMode(new AdvancedGameMode("Tournament 3", goals));
 
             Log("Initializing");
