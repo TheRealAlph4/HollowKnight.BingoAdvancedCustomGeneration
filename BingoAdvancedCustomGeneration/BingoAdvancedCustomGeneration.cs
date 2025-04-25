@@ -29,6 +29,9 @@ namespace BingoAdvancedCustomGeneration
             GoalManager.SetupCustomTournamentExclusions(goals);
 
             goals.Remove("Slash Millibelle in Pleasure House");
+            goals.Remove("Open 6 geo chests (not in junk pit)");
+            goals.Remove("Decipher Hunter's Notes: Maskfly + Shrumeling");
+            goals.Remove("Collect 4 Simple Keys");
 
             BingoSync.Goals.AddGameMode(new AdvancedGameMode("Tournament 3", goals));
 

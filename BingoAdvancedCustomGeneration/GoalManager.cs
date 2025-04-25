@@ -25,33 +25,43 @@ namespace BingoAdvancedCustomGeneration
 
         public static void SetupCustomTournamentExclusions(Dictionary<string, AdvancedGoal> goals)
         {
-            bool lineExlusion = true;
+            bool lineExclusion = true;
             bool fullExclusion = false;
+
+            Exclude(goals, "Shade Soul", "Kill 2 Soul Warriors", fullExclusion);
+            Exclude(goals, "Read Bretta's diary", "Sprintmaster + Dashmaster", lineExclusion);
 
             Exclude(goals, "Kill Myla", "Crystal Heart", fullExclusion);
 
-            Exclude(goals, "Lumafly Lantern", "Kill Myla", lineExlusion);
-            Exclude(goals, "Lumafly Lantern", "Crystal Heart", lineExlusion);
-            Exclude(goals, "Lumafly Lantern", "Crystal Guardian 1", lineExlusion);
+            Exclude(goals, "Crystal Guardian 1", "Kill Myla", lineExclusion);
+            Exclude(goals, "Crystal Guardian 1", "Crystal Heart", lineExclusion);
 
-            Exclude(goals, "Descending Dark", "Desolate Dive", lineExlusion);
-            Exclude(goals, "Descending Dark", "Soul Master", lineExlusion);
+            Exclude(goals, "Lumafly Lantern", "Kill Myla", lineExclusion);
+            Exclude(goals, "Lumafly Lantern", "Crystal Heart", lineExclusion);
+            Exclude(goals, "Lumafly Lantern", "Crystal Guardian 1", lineExclusion);
+
+            Exclude(goals, "Descending Dark", "Desolate Dive", lineExclusion);
+            Exclude(goals, "Descending Dark", "Soul Master", lineExclusion);
 
             Exclude(goals, "Slash Zote's corpse in Greenpath", "Defeat Colosseum Zote", fullExclusion);
             Exclude(goals, "Slash Zote's corpse in Greenpath", "Rescue Zote in Deepnest", fullExclusion);
             Exclude(goals, "Slash Zote's corpse in Greenpath", "Vengefly King + Massive Moss Charger", fullExclusion);
 
-            Exclude(goals, "Unlock Queen's Stag + King's Stag Stations", "Have 1500 geo in the bank", lineExlusion);
+            Exclude(goals, "Unlock Queen's Stag + King's Stag Stations", "Have 1500 geo in the bank", lineExclusion);
 
             Unexclude(goals, "Save the 2 grubs in Hive", "Mask Shard  in the Hive");
-            Exclude(goals, "Save the 2 grubs in Hive", "Mask Shard  in the Hive", lineExlusion);
-            Exclude(goals, "Save the 2 grubs in Hive", "Hive Knight", lineExlusion);
-            Exclude(goals, "Save the 2 grubs in Hive", "Hiveblood", lineExlusion);
+            Exclude(goals, "Save the 2 grubs in Hive", "Mask Shard  in the Hive", lineExclusion);
+            Exclude(goals, "Save the 2 grubs in Hive", "Hive Knight", lineExclusion);
+            Exclude(goals, "Save the 2 grubs in Hive", "Hiveblood", lineExclusion);
 
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Hive Knight");
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Hiveblood");
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive");
-            Exclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive", lineExlusion);
+            Exclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive", lineExclusion);
+
+            Exclude(goals, "Unlock Deepnest Stag", "Talk to Midwife", fullExclusion);
+            Exclude(goals, "Unlock Deepnest Stag", "Talk to Mask Maker", lineExclusion);
+            Exclude(goals, "Unlock Deepnest Stag", "Herrah", lineExclusion);
         }
 
         public static void Exclude(Dictionary<string, AdvancedGoal> goals, string goal1, string goal2, bool line = false)
