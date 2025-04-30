@@ -57,7 +57,6 @@ namespace BingoAdvancedCustomGeneration
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Hive Knight");
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Hiveblood");
             Unexclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive");
-            Exclude(goals, "Tram Pass + Visit all 5 Tram Stations", "Mask Shard  in the Hive", lineExclusion);
 
             Exclude(goals, "Unlock Deepnest Stag", "Talk to Midwife", fullExclusion);
             Exclude(goals, "Unlock Deepnest Stag", "Talk to Mask Maker", lineExclusion);
