@@ -1,5 +1,7 @@
-﻿using Modding;
+﻿using BingoSync.Interfaces;
+using Modding;
 using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +11,16 @@ namespace BingoAdvancedCustomGeneration
     {
         new public string GetName() => "BingoAdvancedCustomGeneration";
 
-        public static string version = "1.0.0.0";
+        public static string version = "1.1.0.0";
         public override string GetVersion() => version;
 
-        public override int LoadPriority() => 10;
-
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
+        {
+            OrderedLoader.OnStandaloneGoalsGameModesLoaded += SetupGoalsGameModes;
+            Log("Initializing");
+        }
+
+        private void SetupGoalsGameModes(object _, EventArgs __)
         {
             List<string> groupNames = ["Vanilla", "Extended", "Extended+"];
             foreach (string groupName in groupNames)
@@ -25,7 +31,7 @@ namespace BingoAdvancedCustomGeneration
             Dictionary<string, AdvancedGoal> goals = [];
             goals.AddRange(GoalManager.GetGoalsByGroupName("Vanilla"));
             goals.AddRange(GoalManager.GetGoalsByGroupName("Extended"));
-            
+
             GoalManager.SetupCustomTournamentExclusions(goals);
 
             goals.Remove("Slash Millibelle in Pleasure House");
@@ -34,8 +40,6 @@ namespace BingoAdvancedCustomGeneration
             goals.Remove("Collect 4 Simple Keys");
 
             BingoSync.Goals.AddGameMode(new AdvancedGameMode("Tournament 3", goals));
-
-            Log("Initializing");
         }
     }
 }

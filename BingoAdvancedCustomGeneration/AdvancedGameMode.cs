@@ -7,7 +7,7 @@ namespace BingoAdvancedCustomGeneration
 {
     internal class AdvancedGameMode(string name, Dictionary<string, AdvancedGoal> goals) : GameMode(name, [])
     {
-        public override string GenerateBoard(int seed)
+        public override List<BingoGoal> GenerateBoard(int seed)
         {
             Random rng = new(seed);
 
@@ -24,7 +24,7 @@ namespace BingoAdvancedCustomGeneration
                 board[slot] = goal;
             }
 
-            return Jsonify(board);
+            return [.. board.Select(advancedGoal => new BingoGoal(advancedGoal.Name))];
         }
 
         private int PickRandomSlot(Random rng, List<AdvancedGoal> board)
