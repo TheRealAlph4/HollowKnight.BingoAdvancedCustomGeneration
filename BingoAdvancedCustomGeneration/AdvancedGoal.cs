@@ -2,7 +2,7 @@
 
 namespace BingoAdvancedCustomGeneration
 {
-    internal enum Tag
+    public enum Tag
     {
         Earlygame,
         Middlegame,
@@ -22,7 +22,7 @@ namespace BingoAdvancedCustomGeneration
         Geo,
     }
 
-    internal class AdvancedGoal
+    public class AdvancedGoal
     {
         public string Name = string.Empty;
         public List<string> FullExclusions = [];

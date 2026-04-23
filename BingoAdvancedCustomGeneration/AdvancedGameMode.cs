@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BingoAdvancedCustomGeneration
 {
-    internal class AdvancedGameMode(string name, Dictionary<string, AdvancedGoal> goals) : GameMode(name, [])
+    public class AdvancedGameMode(string name, Dictionary<string, AdvancedGoal> goals) : GameMode(name, [])
     {
         public override List<BingoGoal> GenerateBoard(int seed)
         {

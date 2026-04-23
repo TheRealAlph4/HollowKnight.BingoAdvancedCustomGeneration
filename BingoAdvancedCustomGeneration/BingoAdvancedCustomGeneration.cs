@@ -11,7 +11,7 @@ namespace BingoAdvancedCustomGeneration
     {
         new public string GetName() => "BingoAdvancedCustomGeneration";
 
-        public static string version = "1.1.0.0";
+        public static string version = "1.1.1.0";
         public override string GetVersion() => version;
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
