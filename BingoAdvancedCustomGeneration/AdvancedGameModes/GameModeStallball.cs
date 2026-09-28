@@ -69,9 +69,7 @@ namespace BingoAdvancedCustomGeneration.AdvancedGameModes
 
             const double StallballMultiplier = 5.0;
 
-            _goals["Broken Vessel"].Weight = StallballMultiplier;
             _goals["Lost Kin"].Weight = StallballMultiplier;
-            _goals["Monarch Wings"].Weight = StallballMultiplier;
             _goals["Unlock Hidden Stag Station"].Weight = StallballMultiplier;
             _goals["Fungal Core Mask Shard"].Weight = StallballMultiplier;
             _goals["Save the 2 grubs in Basin"].Weight = StallballMultiplier;
@@ -81,8 +79,10 @@ namespace BingoAdvancedCustomGeneration.AdvancedGameModes
 
             _goals["Save the 2 grubs in Hive"].Weight = MinorStallballMultiplier;
             _goals["Stag Nest vessel fragment"].Weight = MinorStallballMultiplier;
+            _goals["Use 2 Simple Keys"].Weight = MinorStallballMultiplier;
+            _goals["Kill your shade in Jiji's Hut"].Weight = MinorStallballMultiplier;
 
-            const double CdashMultiplier = 0.5;
+            const double CdashMultiplier = 0.65;
 
             _goals["Crystal Heart"].Weight = CdashMultiplier;
             _goals["Isma's Tear"].Weight = CdashMultiplier;
@@ -114,8 +114,21 @@ namespace BingoAdvancedCustomGeneration.AdvancedGameModes
             {
                 int slot = PickRandomSlot(rng, board);
                 AdvancedGoal goal = PickRandomGoal(rng, board, slot);
+                if (goal.Name == "Monarch Wings" || goal.Name == "Broken Vessel")
+                {
+                    _goals["Unlock Hidden Stag Station"].Weight = 0.5;
+                }
+                if (goal.Name == "Unlock Hidden Stag Station")
+                {
+                    _goals["Monarch Wings"].Weight = 0.5;
+                    _goals["Broken Vessel"].Weight = 0.5;
+                }
                 board[slot] = goal;
             }
+
+            _goals["Unlock Hidden Stag Station"].Weight = 5.0;
+            _goals["Monarch Wings"].Weight = 1.0;
+            _goals["Broken Vessel"].Weight = 1.0;
 
             return [.. board.Select(advancedGoal => advancedGoal.Name)];
         }
