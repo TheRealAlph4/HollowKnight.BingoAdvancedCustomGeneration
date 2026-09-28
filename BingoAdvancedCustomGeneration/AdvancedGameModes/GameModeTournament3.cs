@@ -1,13 +1,71 @@
-﻿using BingoSync.CustomGoals;
+﻿using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BingoAdvancedCustomGeneration
+namespace BingoAdvancedCustomGeneration.AdvancedGameModes
 {
-    public class AdvancedGameMode(string name, Dictionary<string, AdvancedGoal> goals) : GameMode(name, [])
+    public sealed class GameModeTournament3 : AdvancedGameMode
     {
-        public override List<BingoGoal> GenerateBoard(int seed)
+        public override string DisplayName => "Tournament 3";
+        public override bool CanBeRenamed => false;
+
+        public override string SetName(string _)
+        {
+            return DisplayName;
+        }
+
+        private readonly Dictionary<string, AdvancedGoal> _goals = [];
+
+        public GameModeTournament3() : base()
+        {
+            const bool lineExclusion = true;
+            const bool fullExclusion = false;
+
+            _goals.AddRange(GoalGroups["Vanilla"]);
+            _goals.AddRange(GoalGroups["Extended"]);
+
+            _goals.Remove("Slash Millibelle in Pleasure House");
+            _goals.Remove("Open 6 geo chests (not in junk pit)");
+            _goals.Remove("Decipher Hunter's Notes: Maskfly + Shrumeling");
+            _goals.Remove("Collect 4 Simple Keys");
+
+            _goals["Save the 2 grubs in Hive"].Unexclude(_goals["Mask Shard  in the Hive"]);
+            _goals["Tram Pass + Visit all 5 Tram Stations"].Unexclude(_goals["Hive Knight"]);
+            _goals["Tram Pass + Visit all 5 Tram Stations"].Unexclude(_goals["Hiveblood"]);
+            _goals["Tram Pass + Visit all 5 Tram Stations"].Unexclude(_goals["Mask Shard  in the Hive"]);
+
+            _goals["Shade Soul"].Exclude(_goals["Kill 2 Soul Warriors"], fullExclusion);
+            _goals["Read Bretta's diary"].Exclude(_goals["Sprintmaster + Dashmaster"], lineExclusion);
+
+            _goals["Kill Myla"].Exclude(_goals["Crystal Heart"], fullExclusion);
+
+            _goals["Crystal Guardian 1"].Exclude(_goals["Kill Myla"], lineExclusion);
+            _goals["Crystal Guardian 1"].Exclude(_goals["Crystal Heart"], lineExclusion);
+
+            _goals["Lumafly Lantern"].Exclude(_goals["Kill Myla"], lineExclusion);
+            _goals["Lumafly Lantern"].Exclude(_goals["Crystal Heart"], lineExclusion);
+            _goals["Lumafly Lantern"].Exclude(_goals["Crystal Guardian 1"], lineExclusion);
+
+            _goals["Descending Dark"].Exclude(_goals["Desolate Dive"], lineExclusion);
+            _goals["Descending Dark"].Exclude(_goals["Soul Master"], lineExclusion);
+
+            _goals["Slash Zote's corpse in Greenpath"].Exclude(_goals["Defeat Colosseum Zote"], fullExclusion);
+            _goals["Slash Zote's corpse in Greenpath"].Exclude(_goals["Rescue Zote in Deepnest"], fullExclusion);
+            _goals["Slash Zote's corpse in Greenpath"].Exclude(_goals["Vengefly King + Massive Moss Charger"], fullExclusion);
+
+            _goals["Unlock Queen's Stag + King's Stag Stations"].Exclude(_goals["Have 1500 geo in the bank"], lineExclusion);
+
+            _goals["Save the 2 grubs in Hive"].Exclude(_goals["Mask Shard  in the Hive"], lineExclusion);
+            _goals["Save the 2 grubs in Hive"].Exclude(_goals["Hive Knight"], lineExclusion);
+            _goals["Save the 2 grubs in Hive"].Exclude(_goals["Hiveblood"], lineExclusion);
+
+            _goals["Unlock Deepnest Stag"].Exclude(_goals["Talk to Midwife"], fullExclusion);
+            _goals["Unlock Deepnest Stag"].Exclude(_goals["Talk to Mask Maker"], lineExclusion);
+            _goals["Unlock Deepnest Stag"].Exclude(_goals["Herrah"], lineExclusion);
+        }
+
+        public override List<string> GenerateBoard(int seed)
         {
             Random rng = new(seed);
 
@@ -24,7 +82,7 @@ namespace BingoAdvancedCustomGeneration
                 board[slot] = goal;
             }
 
-            return [.. board.Select(advancedGoal => new BingoGoal(advancedGoal.Name))];
+            return [.. board.Select(advancedGoal => advancedGoal.Name)];
         }
 
         private int PickRandomSlot(Random rng, List<AdvancedGoal> board)
@@ -46,7 +104,7 @@ namespace BingoAdvancedCustomGeneration
             List<AdvancedGoal> potentialGoals = [];
             double totalWeight = 0d;
 
-            foreach (AdvancedGoal potentialGoal in goals.Values)
+            foreach (AdvancedGoal potentialGoal in _goals.Values)
             {
                 if (!board.Contains(potentialGoal) && !GoalSlotIsExcluded(board, slot, potentialGoal))
                 {
@@ -118,17 +176,6 @@ namespace BingoAdvancedCustomGeneration
             }
             return goal1.FullExclusions.Contains(goal2.Name) ||
                 goal2.FullExclusions.Contains(goal1.Name);
-        }
-
-        private static string Jsonify(List<AdvancedGoal> board)
-        {
-            string output = "[";
-            for (int i = 0; i < board.Count; i++)
-            {
-                output += "{\"name\": \"" + board.ElementAt(i).Name + "\"}" + (i < 24 ? "," : "");
-            }
-            output += "]";
-            return output;
         }
     }
 }
