@@ -88,7 +88,6 @@ namespace BingoAdvancedCustomGeneration.AdvancedGameModes
             _goals["Isma's Tear"].Weight = CdashMultiplier;
             _goals["Lumafly Lantern"].Weight = CdashMultiplier;
             _goals["Kill Myla"].Weight = CdashMultiplier;
-            _goals["Talk to Emilitia (shortcut out of sewers)"].Weight = CdashMultiplier;
 
             const double PeakMultiplier = 0.8;
 
