@@ -11,7 +11,7 @@ namespace BingoAdvancedCustomGeneration
     {
         new public string GetName() => "BingoAdvancedCustomGeneration";
 
-        public static string version = "1.2.1.1";
+        public static string version = "1.2.1.2";
         public override string GetVersion() => version;
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
@@ -22,6 +22,7 @@ namespace BingoAdvancedCustomGeneration
 
         private void SetupGoalsGameModes(object _, EventArgs __)
         {
+            Log("BingoAdvancedCustomGeneration.SetupGoalsGameModes");
             Goals.AddGameMode(new GameModeTournament3());
             Goals.AddGameMode(new GameModeStallball());
         }
